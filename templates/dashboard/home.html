@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4 p-md-5">
+        <h1 class="h3">Welcome, {{ user.first_name|default:user.username }}!</h1>
+        <p class="text-secondary">Your CampusConnect overview</p>
+        <div class="row g-3 mt-2">
+            <div class="col-sm-6">
+                <div class="p-3 bg-light rounded">
+                    <div class="small text-secondary">Role</div>
+                    <strong>{{ user.get_role_display }}</strong>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="p-3 bg-light rounded">
+                    <div class="small text-secondary">Course</div>
+                    <strong>{{ user.course|default:"Not set" }}</strong>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="p-3 bg-light rounded">
+                    <div class="small text-secondary">Members</div>
+                    <strong>{{ member_count }}</strong>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="p-3 bg-light rounded">
+                    <div class="small text-secondary">Last login</div>
+                    <strong>{{ user.last_login|date:"M d, Y" }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <a class="btn btn-primary" href="{% url 'profile' %}">Edit profile</a>
+            {% if is_admin %}
+                <a class="btn btn-outline-primary" href="{% url 'admin_panel' %}">Open admin panel</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
